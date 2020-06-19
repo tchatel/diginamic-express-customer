@@ -17,4 +17,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/customers', customersRouter);
 
+app.use((err, req, res, next) => {
+    console.error('ERROR', err);
+    res.status(err.status).send({
+        error: err.status, 
+        message: err.message
+    });
+});
+
 module.exports = app;
